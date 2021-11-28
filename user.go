@@ -3,9 +3,10 @@ package userservice
 import "net/mail"
 
 type UserInput struct {
-	Name     string
-	Email    string
-	Password string
+	Name           string
+	UserName       string
+	Email          string
+	HashedPassword string
 }
 
 func (u UserInput) Valid() error {
@@ -18,9 +19,10 @@ func (u UserInput) Valid() error {
 }
 
 type User struct {
-	Id    string
-	Name  string
-	Email string
+	Id       string
+	Name     string
+	UserName string
+	Email    string
 }
 
 type Store interface {

@@ -34,9 +34,9 @@ func New() *Service {
 
 func (s *Service) AddUser(ctx context.Context, request *proto.AddUserRequest) (*proto.UserResponse, error) {
 	input := userservice.UserInput{
-		Name:     request.UserName,
-		Email:    request.Email,
-		Password: "hashed pass",
+		Name:           request.UserName,
+		Email:          request.Email,
+		HashedPassword: "hashed pass",
 	}
 
 	if err := input.Valid(); err != nil {
