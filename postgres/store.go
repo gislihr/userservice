@@ -1,4 +1,4 @@
-package store
+package postgres
 
 import (
 	sq "github.com/Masterminds/squirrel"
@@ -10,7 +10,7 @@ const userTableName = "userservice.user"
 
 var userColumns = []string{"id", "name", "username", "email"}
 
-type PostgresStore struct {
+type Store struct {
 	db *sqlx.DB
 }
 
@@ -30,11 +30,11 @@ func (u dbUser) toServiceUser() *userservice.User {
 	}
 }
 
-func NewPostgresStore(db *sqlx.DB) *PostgresStore {
-	return &PostgresStore{db: db}
+func NewStore(db *sqlx.DB) *Store {
+	return &Store{db: db}
 }
 
-func (s *PostgresStore) AddUser(user userservice.UserInput) (*userservice.User, error) {
+func (s *Store) AddUser(user userservice.UserInput) (*userservice.User, error) {
 	psql := sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
 
 	query, args, err := psql.Insert(userTableName).
@@ -56,7 +56,7 @@ func (s *PostgresStore) AddUser(user userservice.UserInput) (*userservice.User, 
 	return s.GetUserById(id)
 }
 
-func (s *PostgresStore) GetUserById(id string) (*userservice.User, error) {
+func (s *Store) GetUserById(id string) (*userservice.User, error) {
 	psql := sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
 
 	query, args, err := psql.Select().
@@ -75,6 +75,6 @@ func (s *PostgresStore) GetUserById(id string) (*userservice.User, error) {
 	return res.toServiceUser(), err
 }
 
-func (s *PostgresStore) GetUsers() ([]userservice.User, error) {
+func (s *Store) GetUsers() ([]userservice.User, error) {
 	panic("not implemented")
 }

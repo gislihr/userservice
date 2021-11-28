@@ -9,27 +9,12 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-type s struct{}
-
-func (s) AddUser(userservice.UserInput) (*userservice.User, error) {
-	return &userservice.User{}, nil
-}
-
-func (s) GetUserById(id string) (*userservice.User, error) {
-	return &userservice.User{}, nil
-}
-
-func (s) GetUsers() ([]userservice.User, error) {
-	var u []userservice.User
-	return u, nil
-}
-
 type Service struct {
 	store userservice.Store
 }
 
-func New() *Service {
-	return &Service{store: s{}}
+func New(store userservice.Store) *Service {
+	return &Service{store: store}
 }
 
 func (s *Service) AddUser(ctx context.Context, request *proto.AddUserRequest) (*proto.UserResponse, error) {

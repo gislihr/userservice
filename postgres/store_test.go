@@ -1,4 +1,4 @@
-package store
+package postgres
 
 import (
 	"fmt"
@@ -18,7 +18,7 @@ func getTestDatabase() (*sqlx.DB, error) {
 	)
 }
 
-var testStore PostgresStore
+var testStore Store
 
 func TestMain(m *testing.M) {
 	if testStore.db == nil {

@@ -7,4 +7,10 @@ clean:
 	rm -f proto/*.go
 
 dev:
+	PORT=8080 \
+	PG_HOST=localhost \
+	PG_USER=user \
+	PG_PASSWORD=pass \
+	PG_DATABASE=userservice \
+	PG_SSL_MODE=disable \
 	go run github.com/cosmtrek/air

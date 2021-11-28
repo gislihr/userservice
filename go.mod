@@ -6,6 +6,7 @@ require (
 	github.com/Masterminds/squirrel v1.5.1
 	github.com/cosmtrek/air v1.27.7
 	github.com/jmoiron/sqlx v1.3.4
+	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/lib/pq v1.10.2
 	github.com/matryer/is v1.4.0
 	github.com/sirupsen/logrus v1.8.1
