@@ -4,12 +4,14 @@ option go_package = "github.com/gislihr/userservice/proto";
 
 service UserService {
     rpc AddUser (AddUserRequest) returns (UserResponse) {}
+    rpc Login (LoginRequest) returns (AuthenticationResponse) {}
 }
 
 message AddUserRequest {
   string user_name = 1;
-  string email = 2;
-  string password = 3;
+  string name = 2;
+  string email = 3;
+  string password = 4;
 }
   
 message UserResponse {
@@ -19,5 +21,16 @@ message UserResponse {
 message User {
   string id = 1;
   string name = 2;
-  string email = 3;
+  string user_name = 3;
+  string email = 4;
+}
+
+message LoginRequest {
+  string user_name_or_email = 1;
+  string password = 2;
+}
+
+message AuthenticationResponse {
+  string jwt_token = 1;
+  User user = 2;
 }

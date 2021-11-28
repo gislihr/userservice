@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 
+	"github.com/gislihr/userservice"
 	userserviceGrpc "github.com/gislihr/userservice/grpc"
 	"github.com/gislihr/userservice/postgres"
 	"github.com/gislihr/userservice/proto"
@@ -49,9 +50,9 @@ func main() {
 		log.WithError(err).Fatal("error connecting to database")
 	}
 
-	postgres.NewStore(db)
+	store := postgres.NewStore(db)
 	grpcServer := grpc.NewServer()
-	s := userserviceGrpc.New(nil)
+	s := userserviceGrpc.New(store, userservice.BcryptPasswordManager{})
 	proto.RegisterUserServiceServer(grpcServer, s)
 
 	log.WithField("port", conf.Port).Info("Listening...")
